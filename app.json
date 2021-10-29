@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "aura",
+    "slug": "aura",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "aura"
+}
