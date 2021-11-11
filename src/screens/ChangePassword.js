@@ -1,9 +1,25 @@
 import React from 'react'
-import { Dimensions, StyleSheet, Text, TextInput, View } from 'react-native'
+import { Dimensions, RefreshControl, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 
+const wait = (timeout) => {
+    return new Promise(resolve => setTimeout(resolve, timeout));
+  }
+
 export default function ChangePassword() {
+    const [refreshing, setRefreshing] = React.useState(false);
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    wait(2000).then(() => setRefreshing(false));
+  }, []);
     return (
+    <ScrollView showsVerticalScrollIndicator={false} refreshControl={
+        <RefreshControl
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+        />
+    } >
         <View style={styles.container}>
             <View>
                 <TextInput 
@@ -24,6 +40,7 @@ export default function ChangePassword() {
                 <Text style={styles.buttonText}> CHANGE PASSWORD </Text>
             </TouchableOpacity>
         </View>
+        </ScrollView>
     )
 }
 

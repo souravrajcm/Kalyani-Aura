@@ -10,6 +10,8 @@ import ProfileScreen from "../screens/ProfileScreen";
 import ProfileDetails from "../Components/ProfileDetails";
 import MenuBar from "../Components/MenuBar";
 import Feeds from "../Components/Feed";
+import ImgFeed from "../Components/ImgFeed";
+import CommentBox from "../Components/CommentBox";
 
 const Stack = createStackNavigator();
 
@@ -48,8 +50,20 @@ export default function MainStack({navigation}) {
         component={ProfileDetails}
         options={{ headerShown: false }}
       />
-      {/* <Stack.Screen name= 'menuBar' component={MenuBar} />
-      <Stack.Screen name='feed' component={Feeds}/> */}
+      <Stack.Screen name='commentBox' component={CommentBox} options={{ 
+        title: 'Post Comment',
+        
+        headerLeft: () => (
+          <FontAwesome.Button
+            name="angle-left"
+            size={32}
+            color="black"
+            style={{ backgroundColor: '#fff' }}
+            onPress={() =>{navigation.navigate('tabComponent')}}
+          />
+        ),
+      }} />
+      {/* <Stack.Screen name='imgFeeds' component={ImgFeed} options={{headerShown: false}} /> */}
     </Stack.Navigator>
   );
 }

@@ -1,4 +1,5 @@
-import React from "react";
+import { useLinkBuilder } from "@react-navigation/native";
+import React, { useState } from "react";
 import {
   Alert,
   Dimensions,
@@ -6,13 +7,18 @@ import {
   Text,
   TouchableWithoutFeedback,
   View,
+  TouchableOpacity,
+  StatusBar,
 } from "react-native";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Button, Menu, Divider, Provider } from "react-native-paper";
+import {
+  AntDesign,
+  Ionicons,
+  MaterialCommunityIcons,
+} from "react-native-vector-icons";
 
 import ImgFeed from "./ImgFeed";
 import Profile from "./Profile";
-import { StatusBar } from "react-native";
 
 const data = [
   {
@@ -67,15 +73,25 @@ const data = [
 ];
 
 export default function Feeds({ navigation }) {
-  const [visible, setVisible] = React.useState(false);
+  const [color, setColor] = useState();
 
-  const openMenu = () => setVisible(true);
+  //   const [visible, setVisible] = React.useState(false);
 
-  const closeMenu = () => setVisible(false);
+  //   const openMenu = () => setVisible(true);
 
+  //   const closeMenu = () => setVisible(false);
+  //   const [edit,setEdit] = useState(false)
+
+  //   const editPost=()=>{
+  // setEdit(true)
+  //   }
+
+  const like = () => {
+    setColor(!color);
+  };
   return (
     <View style={{ marginTop: 3, padding: 3 }}>
-      <StatusBar translucent={true} barStyle="default" />
+      <StatusBar translucent={true} barStyle="dark-content" />
       {data.map((d, k) => (
         <View key={k} style={styles.container}>
           <View style={{ display: "flex", flexDirection: "row" }}>
@@ -93,7 +109,7 @@ export default function Feeds({ navigation }) {
               </View>
             </TouchableWithoutFeedback>
 
-            <TouchableWithoutFeedback onPress={() => {}}>
+            <TouchableWithoutFeedback onPress={() => editPost()}>
               <View style={styles.topIconStyle}>
                 <MaterialCommunityIcons
                   name="dots-horizontal"
@@ -102,6 +118,17 @@ export default function Feeds({ navigation }) {
                 />
               </View>
             </TouchableWithoutFeedback>
+            {/* {
+              edit&&
+
+            <View style={{width:200,height:80,backgroundColor:'red' ,position:"absolute",zIndex:1,elevation:1,right:10,marginTop:30}}>
+              <TouchableOpacity onPress={()=>{}}>
+
+              <Text>Edit</Text>
+              </TouchableOpacity>
+              <Text>Delete</Text>
+            </View>
+            } */}
           </View>
           <View style={{ paddingLeft: 10, paddingRight: 10 }}>
             <Text style={{ fontSize: 16 }} numberOfLines={3}>
@@ -115,18 +142,90 @@ export default function Feeds({ navigation }) {
             </Text>
           </View>
 
-          <TouchableWithoutFeedback
-            onPress={() =>
+          <TouchableOpacity
+            onPress={() => {
               navigation.navigate("HomeDetailPage", {
                 userName: `${d.userName}`,
                 post_img: `${d.img}`,
-              })
-            }
+              });
+            }}
           >
-            <View>
-              <ImgFeed feed_img={d.img} updateDate={d.sub_title} />
-            </View>
-          </TouchableWithoutFeedback>
+            <ImgFeed feed_img={d.img} updateDate={d.sub_title} />
+          </TouchableOpacity>
+          <View
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              marginLeft: 10,
+              justifyContent: "space-between",
+              // marginBottom: 10,
+            }}
+          >
+            <TouchableOpacity onPress={() => like()}>
+              {color ? (
+                <AntDesign
+                  name="heart"
+                  size={22}
+                  color="red"
+                  style={{ marginLeft: 20 }}
+                >
+                  <Text
+                    style={{ fontSize: 14, textAlign: "center", color: "gray" }}
+                  >
+                    1
+                  </Text>
+                </AntDesign>
+              ) : (
+                <MaterialCommunityIcons
+                  name="heart-outline"
+                  size={22}
+                  color="gray"
+                  style={{ marginLeft: 20 }}
+                >
+                  <Text
+                    style={{ fontSize: 14, textAlign: "center", color: "gray" }}
+                  >
+                    1
+                  </Text>
+                </MaterialCommunityIcons>
+              )}
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate("commentBox", {
+                  profile_img: `${d.p_img}`,
+                  userName: `${d.userName}`,
+                  place: `${d.place}`,
+                  feed_img: `${d.img}`,
+                })
+              }}
+            >
+              <Ionicons
+                name="chatbubble-outline"
+                size={22}
+                color="gray"
+                style={styles.iconStyle}
+              >
+                <Text
+                  style={{ fontSize: 14, textAlign: "center", color: "gray" }}
+                >
+                  0
+                </Text>
+              </Ionicons>
+            </TouchableOpacity>
+
+            <MaterialCommunityIcons
+              name="share-variant"
+              size={22}
+              color="gray"
+              style={{ marginRight: 25 }}
+            />
+          </View>
+          <Text style={{ color: "gray", marginLeft: 5, fontSize: 12 }}>
+            {" "}
+            {d.sub_title}
+          </Text>
         </View>
       ))}
     </View>

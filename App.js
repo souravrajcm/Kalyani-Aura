@@ -1,4 +1,5 @@
 import React from "react";
+import EditProfileScreen from "./src/Components/EditProfile";
 // import { NavigationContainer } from "@react-navigation/native";
 // import { createDrawerNavigator } from "@react-navigation/drawer";
 // import { StatusBar } from "expo-status-bar";
@@ -16,7 +17,8 @@ import React from "react";
 import MyDrawer from "./src/navigation/MyDrawer";
 
 export default function App() {
+ 
   return (
-    <MyDrawer />
+        <MyDrawer />
   );
 }

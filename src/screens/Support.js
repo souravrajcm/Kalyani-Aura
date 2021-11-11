@@ -1,5 +1,5 @@
 import React from "react";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { ScrollView, StyleSheet, Text, View, RefreshControl } from "react-native";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { FontAwesome5, FontAwesome } from "@expo/vector-icons";
 import VerticalLine from "../Components/VerticalLine";
@@ -49,9 +49,24 @@ const data = [
   },
 ];
 
+const wait = (timeout) => {
+  return new Promise(resolve => setTimeout(resolve, timeout));
+}
+
 export default function Support({navigation}) {
+  const [refreshing, setRefreshing] = React.useState(false);
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    wait(2000).then(() => setRefreshing(false));
+  }, []);
   return (
-    <ScrollView showsVerticalScrollIndicator={false} style={{padding:3}}>
+    <ScrollView showsVerticalScrollIndicator={false} style={{padding:3}} refreshControl={
+      <RefreshControl
+        refreshing={refreshing}
+        onRefresh={onRefresh}
+      />
+    }>
       {data.map((d, k) => (
         <TouchableWithoutFeedback onPress={() =>{navigation.navigate('Support Status',{
           title : `${d.title}`,

@@ -1,5 +1,5 @@
 import React from "react";
-import { FlatList, SafeAreaView, StyleSheet, Text, View } from "react-native";
+import { FlatList, RefreshControl, SafeAreaView, StyleSheet, Text, View } from "react-native";
 import Events from "../Components/Events";
 
 const data = [
@@ -35,13 +35,31 @@ const data = [
   },
 ];
 
+const wait = (timeout) => {
+  return new Promise(resolve => setTimeout(resolve, timeout));
+}
+
 export default function EventsScreen() {
+
+  const [refreshing, setRefreshing] = React.useState(false);
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    wait(2000).then(() => setRefreshing(false));
+  }, []);
+
   return (
     <SafeAreaView style={styles.container}>
       <FlatList
         data={data}
         showsVerticalScrollIndicator={false}
         keyExtractor={(item) => item.id}
+        refreshControl={
+          <RefreshControl 
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+          />
+        }
         renderItem={({ item }) => (
           <Events
             img={item.img}

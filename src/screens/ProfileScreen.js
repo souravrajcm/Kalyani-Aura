@@ -10,6 +10,7 @@ import {
   View,
   Dimensions,
   TouchableWithoutFeedback,
+  RefreshControl,
 } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 
@@ -70,11 +71,27 @@ const data = [
   },
 ];
 
+const wait = (timeout) => {
+  return new Promise(resolve => setTimeout(resolve, timeout));
+}
+
 export default function ProfileScreen({ navigation }) {
+  const [refreshing, setRefreshing] = React.useState(false);
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    wait(2000).then(() => setRefreshing(false));
+  }, []);
   return (
     <ScrollView
       contentContainerStyle={{ flexGrow: 1 }}
       showsVerticalScrollIndicator={false}
+      refreshControl= {
+        <RefreshControl
+          refreshing={refreshing}
+          onRefresh={onRefresh}
+        />
+      }
     >
       <StatusBar translucent={true}  />
       <View style={{ marginBottom: 60,marginTop:5 }}>
