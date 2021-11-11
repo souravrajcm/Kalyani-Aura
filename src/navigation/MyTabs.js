@@ -2,7 +2,7 @@ import React from "react";
 import { StyleSheet, Image } from "react-native";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
-import { MaterialCommunityIcons, MaterialIcons, Ionicons } from "@expo/vector-icons";
+import { MaterialCommunityIcons, MaterialIcons, Ionicons } from "react-native-vector-icons";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 
@@ -22,23 +22,13 @@ const Drawer = createDrawerNavigator();
 
 function MyTabs() {
   return (
-    <Tab.Navigator
-      initialRouteName="Home"
-      activeColor="#000000"
-      barStyle={{ backgroundColor: "#fff" }}
-    >
+    <Tab.Navigator initialRouteName="Home" activeColor="#000000" barStyle={{ backgroundColor: "#fff" }}>
       <Tab.Screen
         name="Homes"
         component={HomeStackScreen}
         options={{
           tabBarLabel: "Home",
-          tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons
-              name="home-variant"
-              color={color}
-              size={26}
-            />
-          ),
+          tabBarIcon: ({ color }) => <MaterialCommunityIcons name="home-variant" color={color} size={26} />,
         }}
       />
       <Tab.Screen
@@ -46,13 +36,7 @@ function MyTabs() {
         component={EventScreens}
         options={{
           tabBarLabel: "Events",
-          tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons
-              name="calendar-text"
-              color={color}
-              size={26}
-            />
-          ),
+          tabBarIcon: ({ color }) => <MaterialCommunityIcons name="calendar-text" color={color} size={26} />,
         }}
       />
       <Tab.Screen
@@ -60,9 +44,7 @@ function MyTabs() {
         component={SupportScreens}
         options={{
           tabBarLabel: "Support",
-          tabBarIcon: ({ color }) => (
-            <MaterialIcons name="support" color={color} size={26} />
-          ),
+          tabBarIcon: ({ color }) => <MaterialIcons name="support" color={color} size={26} />,
         }}
       />
       <Tab.Screen
@@ -70,9 +52,7 @@ function MyTabs() {
         component={VisitorScreens}
         options={{
           tabBarLabel: "Visitor",
-          tabBarIcon: ({ color }) => (
-            <MaterialIcons name="person-pin" color={color} size={26} />
-          ),
+          tabBarIcon: ({ color }) => <MaterialIcons name="person-pin" color={color} size={26} />,
         }}
       />
     </Tab.Navigator>
@@ -107,13 +87,9 @@ const HomeStackScreen = ({ navigation }) => {
                 size={26}
                 color="black"
                 backgroundColor="white"
+                onPress={() => navigation.navigate("searchScreen")}
               />
-              <MaterialIcons.Button
-                name="notifications-none"
-                size={26}
-                color="black"
-                backgroundColor="white"
-              />
+              <MaterialIcons.Button name="notifications-none" size={26} color="black" backgroundColor="white" />
             </View>
           ),
         }}

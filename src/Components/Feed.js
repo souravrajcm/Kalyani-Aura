@@ -11,13 +11,11 @@ import {
   StatusBar,
 } from "react-native";
 import { Button, Menu, Divider, Provider } from "react-native-paper";
-import {
-  AntDesign,
-  Ionicons,
-  MaterialCommunityIcons,
-} from "react-native-vector-icons";
+import { AntDesign, Ionicons, MaterialCommunityIcons } from "react-native-vector-icons";
 
 import ImgFeed from "./ImgFeed";
+import Likes from "./Likes";
+import MenuList from "./MenuList";
 import Profile from "./Profile";
 
 const data = [
@@ -27,6 +25,8 @@ const data = [
     p_img: require("../Assets/p_img1.jpg"),
     img: require("../Assets/img5.jpg"),
     sub_title: "5 minutes ago",
+    likes: 150,
+    liked: true,
   },
   {
     userName: "Gokul_raj_kp",
@@ -34,6 +34,8 @@ const data = [
     p_img: require("../Assets/p_img2.jpg"),
     img: require("../Assets/img2.jpg"),
     sub_title: " 2 hours ago",
+    likes: 150,
+    liked: true,
   },
   {
     userName: "Tamilarasan",
@@ -41,6 +43,8 @@ const data = [
     p_img: require("../Assets/p_img3.jpg"),
     img: require("../Assets/img3.jpg"),
     sub_title: "1 day ago",
+    likes: 150,
+    liked: false,
   },
   {
     userName: "muhammed_jaseel",
@@ -48,6 +52,8 @@ const data = [
     p_img: require("../Assets/p_img1.jpg"),
     img: require("../Assets/img4.jpg"),
     sub_title: "5 days ago",
+    likes: 150,
+    liked: true,
   },
   {
     userName: "Arul_Aravind",
@@ -55,6 +61,8 @@ const data = [
     p_img: require("../Assets/p_img3.jpg"),
     img: require("../Assets/img1.jpg"),
     sub_title: " 12 days ago",
+    likes: 150,
+    liked: false,
   },
   {
     userName: "Yadhuraj_m",
@@ -62,6 +70,8 @@ const data = [
     p_img: require("../Assets/p_img1.jpg"),
     img: require("../Assets/p_img3.jpg"),
     sub_title: "1 month ago",
+    likes: 150,
+    liked: true,
   },
   {
     userName: "Berlin_underworld",
@@ -69,6 +79,8 @@ const data = [
     p_img: require("../Assets/p_img2.jpg"),
     img: require("../Assets/p_img1.jpg"),
     sub_title: "2 month ago",
+    likes: 150,
+    liked: false,
   },
 ];
 
@@ -108,16 +120,13 @@ export default function Feeds({ navigation }) {
                 <Text style={styles.location}>{d.place}</Text>
               </View>
             </TouchableWithoutFeedback>
+            <MenuList />
 
-            <TouchableWithoutFeedback onPress={() => editPost()}>
+            {/* <TouchableWithoutFeedback onPress={() => editPost()}>
               <View style={styles.topIconStyle}>
-                <MaterialCommunityIcons
-                  name="dots-horizontal"
-                  size={29}
-                  color="black"
-                />
+                <MaterialCommunityIcons name="dots-horizontal" size={29} color="black" />
               </View>
-            </TouchableWithoutFeedback>
+            </TouchableWithoutFeedback> */}
             {/* {
               edit&&
 
@@ -132,13 +141,11 @@ export default function Feeds({ navigation }) {
           </View>
           <View style={{ paddingLeft: 10, paddingRight: 10 }}>
             <Text style={{ fontSize: 16 }} numberOfLines={3}>
-              Lorem <Text style={{ color: "#1E90FF" }}>#Ipsum</Text> is simply
-              dummy text of the printing and typesetting{" "}
-              <Text style={{ color: "#1E90FF" }}>#industry</Text>. Lorem Ipsum
-              has been the industry's standard dummy text ever{" "}
-              <Text style={{ color: "#1E90FF" }}>#since </Text>the 1500s, when
-              an unknown printer took a galley of type and scrambled it to make
-              a type <Text style={{ color: "#1E90FF" }}>#specimen</Text> book.
+              Lorem <Text style={{ color: "#1E90FF" }}>#Ipsum</Text> is simply dummy text of the printing and
+              typesetting <Text style={{ color: "#1E90FF" }}>#industry</Text>. Lorem Ipsum has been the industry's
+              standard dummy text ever <Text style={{ color: "#1E90FF" }}>#since </Text>the 1500s, when an unknown
+              printer took a galley of type and scrambled it to make a type{" "}
+              <Text style={{ color: "#1E90FF" }}>#specimen</Text> book.
             </Text>
           </View>
 
@@ -161,35 +168,7 @@ export default function Feeds({ navigation }) {
               // marginBottom: 10,
             }}
           >
-            <TouchableOpacity onPress={() => like()}>
-              {color ? (
-                <AntDesign
-                  name="heart"
-                  size={22}
-                  color="red"
-                  style={{ marginLeft: 20 }}
-                >
-                  <Text
-                    style={{ fontSize: 14, textAlign: "center", color: "gray" }}
-                  >
-                    1
-                  </Text>
-                </AntDesign>
-              ) : (
-                <MaterialCommunityIcons
-                  name="heart-outline"
-                  size={22}
-                  color="gray"
-                  style={{ marginLeft: 20 }}
-                >
-                  <Text
-                    style={{ fontSize: 14, textAlign: "center", color: "gray" }}
-                  >
-                    1
-                  </Text>
-                </MaterialCommunityIcons>
-              )}
-            </TouchableOpacity>
+            <Likes likes={d.likes} liked={d.liked} />
 
             <TouchableOpacity
               onPress={() => {
@@ -198,34 +177,17 @@ export default function Feeds({ navigation }) {
                   userName: `${d.userName}`,
                   place: `${d.place}`,
                   feed_img: `${d.img}`,
-                })
+                });
               }}
             >
-              <Ionicons
-                name="chatbubble-outline"
-                size={22}
-                color="gray"
-                style={styles.iconStyle}
-              >
-                <Text
-                  style={{ fontSize: 14, textAlign: "center", color: "gray" }}
-                >
-                  0
-                </Text>
+              <Ionicons name="chatbubble-outline" size={22} color="gray" style={styles.iconStyle}>
+                <Text style={{ fontSize: 14, textAlign: "center", color: "gray" }}>0</Text>
               </Ionicons>
             </TouchableOpacity>
 
-            <MaterialCommunityIcons
-              name="share-variant"
-              size={22}
-              color="gray"
-              style={{ marginRight: 25 }}
-            />
+            <MaterialCommunityIcons name="share-variant" size={22} color="gray" style={{ marginRight: 25 }} />
           </View>
-          <Text style={{ color: "gray", marginLeft: 5, fontSize: 12 }}>
-            {" "}
-            {d.sub_title}
-          </Text>
+          <Text style={{ color: "gray", marginLeft: 5, fontSize: 12 }}> {d.sub_title}</Text>
         </View>
       ))}
     </View>
