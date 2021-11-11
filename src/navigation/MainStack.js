@@ -1,7 +1,7 @@
 import React from "react";
-import {StyleSheet} from 'react-native';
+import {StyleSheet, View, Text} from 'react-native';
 import { createStackNavigator } from "@react-navigation/stack";
-import { FontAwesome } from "@expo/vector-icons";
+import { FontAwesome, MaterialIcons } from "react-native-vector-icons";
 
 import MyTabs from "./MyTabs";
 import HomeFeedImg from "../Components/HomeFeedImg";
@@ -12,6 +12,7 @@ import MenuBar from "../Components/MenuBar";
 import Feeds from "../Components/Feed";
 import ImgFeed from "../Components/ImgFeed";
 import CommentBox from "../Components/CommentBox";
+import Notification from "../screens/Notification";
 
 const Stack = createStackNavigator();
 
@@ -63,11 +64,44 @@ export default function MainStack({navigation}) {
           />
         ),
       }} />
-      {/* <Stack.Screen name='imgFeeds' component={ImgFeed} options={{headerShown: false}} /> */}
+      <Stack.Screen name='notification' component={Notification} options={{ 
+        title: 'Notification',
+        headerLeft: () => (
+          <FontAwesome.Button
+            name="angle-left"
+            size={32}
+            color="black"
+            style={{ backgroundColor: '#fff' }}
+            onPress={() =>{navigation.navigate('tabComponent')}}
+          />
+        ),
+        headerRight: () => (
+          <View style={{marginLeft: 10}}> 
+          <MaterialIcons
+                name="notifications-none"
+                size={32}
+                color="black"
+                style={{marginRight: 18}}
+          />
+            <View style={styles.iconBadge}>
+              <Text style={{textAlign: 'center', color: '#fff'}} >8</Text>
+            </View>
+            
+            </View>
+        )
+      }} />
     </Stack.Navigator>
   );
 }
 
 const styles = StyleSheet.create({
-    
+    iconBadge: {
+      width: 25,
+      height: 20,
+      borderRadius: 10,
+      backgroundColor: 'red',
+      position: 'absolute',
+      top: -3,
+      right: 6
+    },
 })

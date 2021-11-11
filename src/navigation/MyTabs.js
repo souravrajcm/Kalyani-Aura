@@ -113,6 +113,7 @@ const HomeStackScreen = ({ navigation }) => {
                 size={26}
                 color="black"
                 backgroundColor="white"
+                onPress={() => {navigation.navigate('notification')}}
               />
             </View>
           ),

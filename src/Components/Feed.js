@@ -1,5 +1,6 @@
 import { useLinkBuilder } from "@react-navigation/native";
 import React, { useState } from "react";
+import Share from 'react-native-share';
 import {
   Alert,
   Dimensions,
@@ -10,7 +11,6 @@ import {
   TouchableOpacity,
   StatusBar,
 } from "react-native";
-import { Button, Menu, Divider, Provider } from "react-native-paper";
 import {
   AntDesign,
   Ionicons,
@@ -75,20 +75,21 @@ const data = [
 export default function Feeds({ navigation }) {
   const [color, setColor] = useState();
 
-  //   const [visible, setVisible] = React.useState(false);
-
-  //   const openMenu = () => setVisible(true);
-
-  //   const closeMenu = () => setVisible(false);
-  //   const [edit,setEdit] = useState(false)
-
-  //   const editPost=()=>{
-  // setEdit(true)
-  //   }
-
   const like = () => {
     setColor(!color);
   };
+
+  const customShare = async () => {
+    const shareOption = {
+      message: 'Some text message'
+    }
+
+    try {
+      const shareResponse = await Share.open(shareOption);
+    } catch(error){
+      console.log('Error =>', error);
+    }
+  }
   return (
     <View style={{ marginTop: 3, padding: 3 }}>
       <StatusBar translucent={true} barStyle="dark-content" />
@@ -214,15 +215,16 @@ export default function Feeds({ navigation }) {
                 </Text>
               </Ionicons>
             </TouchableOpacity>
-
+              <TouchableOpacity onPress={customShare} >
             <MaterialCommunityIcons
               name="share-variant"
               size={22}
               color="gray"
               style={{ marginRight: 25 }}
             />
+            </TouchableOpacity>
           </View>
-          <Text style={{ color: "gray", marginLeft: 5, fontSize: 12 }}>
+          <Text style={{ color: "gray", marginLeft: 5, fontSize: 12,marginTop:1,marginBottom:5 }}>
             {" "}
             {d.sub_title}
           </Text>
