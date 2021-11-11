@@ -89,7 +89,17 @@ const HomeStackScreen = ({ navigation }) => {
                 backgroundColor="white"
                 onPress={() => navigation.navigate("searchScreen")}
               />
+<<<<<<< HEAD
               <MaterialIcons.Button name="notifications-none" size={26} color="black" backgroundColor="white" />
+=======
+              <MaterialIcons.Button
+                name="notifications-none"
+                size={26}
+                color="black"
+                backgroundColor="white"
+                onPress={() => {navigation.navigate('notification')}}
+              />
+>>>>>>> 136d90161ff931a12744f52a0fc218172ab17481
             </View>
           ),
         }}
