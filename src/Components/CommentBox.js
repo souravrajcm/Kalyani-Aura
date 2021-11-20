@@ -1,12 +1,28 @@
 import React from "react";
-import { Text, View, StyleSheet, ScrollView, TextInput, TouchableOpacity } from "react-native";
+import {
+  Text,
+  View,
+  StyleSheet,
+  ScrollView,
+  TextInput,
+  TouchableOpacity,
+} from "react-native";
 import Feeds from "./Feed";
 import Profile from "./Profile";
 import { MaterialCommunityIcons, Ionicons } from "react-native-vector-icons";
 import ImgFeed from "./ImgFeed";
 
 export default function CommentBox({ route }) {
-    const {profile_img, userName, place, feed_img } = route.params;
+  const {
+    profile_img,
+    userName,
+    place,
+    feed_img,
+    companyName,
+    description,
+    comment_count,
+    like_count,
+  } = route.params;
   return (
     <ScrollView>
       <View style={{ display: "flex", flexDirection: "row" }}>
@@ -14,7 +30,10 @@ export default function CommentBox({ route }) {
 
         <View>
           <Text style={styles.userName}> {userName} </Text>
-          <Text style={styles.location}>{place}</Text>
+          <View style={{ flexDirection: "row" }}>
+            <Text style={styles.location}>{place}</Text>
+            <Text style={styles.location}>{companyName}</Text>
+          </View>
         </View>
 
         <View style={styles.topIconStyle}>
@@ -27,15 +46,10 @@ export default function CommentBox({ route }) {
       </View>
       <View style={{ paddingLeft: 10, paddingRight: 10 }}>
         <Text style={{ fontSize: 16 }} numberOfLines={3}>
-          Lorem <Text style={{ color: "#1E90FF" }}>#Ipsum</Text> is simply dummy
-          text of the printing and typesetting{" "}
-          <Text style={{ color: "#1E90FF" }}>#industry</Text>. Lorem Ipsum has
-          been the industry's standard dummy text ever{" "}
-          <Text style={{ color: "#1E90FF" }}>#since </Text>the 1500s, when an
-          unknown printer took a galley of type and scrambled it to make a type{" "}
-          <Text style={{ color: "#1E90FF" }}>#specimen</Text> book.
+          {description}
         </Text>
       </View>
+
       <ImgFeed feed_img={feed_img} />
       <View
         style={{
@@ -53,7 +67,7 @@ export default function CommentBox({ route }) {
           style={{ marginLeft: 20 }}
         >
           <Text style={{ fontSize: 14, textAlign: "center", color: "gray" }}>
-            1
+            {like_count}
           </Text>
         </MaterialCommunityIcons>
 
@@ -64,7 +78,7 @@ export default function CommentBox({ route }) {
           style={styles.iconStyle}
         >
           <Text style={{ fontSize: 14, textAlign: "center", color: "gray" }}>
-            0
+            {comment_count}
           </Text>
         </Ionicons>
 
@@ -75,15 +89,26 @@ export default function CommentBox({ route }) {
           style={{ marginRight: 25 }}
         />
       </View>
-      <View style={{marginTop: 25, borderBottomWidth: 0.5, borderBottomColor: 'gray',paddingBottom:8}}>
-      <Text style={{ fontWeight: 'bold',}}> Comment(0) </Text>
+      <View
+        style={{
+          marginTop: 25,
+          borderBottomWidth: 0.5,
+          borderBottomColor: "gray",
+          paddingBottom: 8,
+        }}
+      >
+        <Text style={{ fontWeight: "bold" }}> Comment(0) </Text>
       </View>
       <View style={styles.commentBox}>
-            <TextInput placeholder= 'Comment the Post..' multiline={true} style={styles.textInput} />
-            <TouchableOpacity style={styles.postButton}>
-                <Text style={styles.buttonText}> Post </Text>
-            </TouchableOpacity>
-          </View>
+        <TextInput
+          placeholder="Comment the Post.."
+          multiline={true}
+          style={styles.textInput}
+        />
+        <TouchableOpacity style={styles.postButton}>
+          <Text style={styles.buttonText}> Post </Text>
+        </TouchableOpacity>
+      </View>
     </ScrollView>
   );
 }
@@ -114,30 +139,30 @@ const styles = StyleSheet.create({
   commentBox: {
     marginTop: 25,
     padding: 5,
-    flexDirection: 'row',
-},
-textInput: {
+    flexDirection: "row",
+  },
+  textInput: {
     width: 250,
     height: 50,
     fontSize: 15,
     borderBottomWidth: 1,
-    borderBottomColor: '#0b0145',
-    overflow : 'hidden',
+    borderBottomColor: "#0b0145",
+    overflow: "hidden",
     lineHeight: 3,
-},
-postButton: {
+  },
+  postButton: {
     height: 40,
     width: 90,
     marginTop: 10,
     marginLeft: 30,
     borderRadius: 8,
-    backgroundColor: '#0b0145',
-    justifyContent: 'center',
-},
-buttonText: {
-    textAlign: 'center',
-    color: 'white',
-    fontWeight : 'bold',
-    fontSize: 18
-},
+    backgroundColor: "#0b0145",
+    justifyContent: "center",
+  },
+  buttonText: {
+    textAlign: "center",
+    color: "white",
+    fontWeight: "bold",
+    fontSize: 18,
+  },
 });

@@ -2,16 +2,13 @@ import React from "react";
 import { ImageBackground, StyleSheet, Text, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
-export default function Profile({
-  newImgStyle,
-  name,
-  textStyle,
-  profile_img,
-}) {
+export default function Profile({ newImgStyle, name, textStyle, profile_img }) {
   return (
     <View>
       <ImageBackground
-        source={profile_img}
+        source={{
+          uri: "https://mobileapp.kalyaniaura.com/storage/" + profile_img,
+        }}
         style={[styles.imageStyle, newImgStyle]}
         imageStyle={{ borderRadius: 50 }}
       >
@@ -25,8 +22,8 @@ const styles = StyleSheet.create({
   imageStyle: {
     width: 80,
     height: 80,
-    // marginTop: 10,
     borderRadius: 50,
+    // marginTop: 10,
   },
   iconStyle: {
     position: "absolute",

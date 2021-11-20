@@ -107,6 +107,7 @@ const HomeStackScreen = ({ navigation }) => {
                 size={26}
                 color="black"
                 backgroundColor="white"
+                onPress={()=>navigation.navigate('SearchScreen')}
               />
               <MaterialIcons.Button
                 name="notifications-none"

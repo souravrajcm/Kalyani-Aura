@@ -50,7 +50,7 @@ export function DrawerContent(props) {
               )}
               label="Profile"
               onPress={() => {
-                props.navigation.navigate("profile");
+                props.navigation.navigate("profilePage");
               }}
             />
             <DrawerItem
@@ -103,7 +103,7 @@ export function DrawerContent(props) {
               icon={({ color, size }) => (
                 <MaterialCommunityIcons
                   name="exit-to-app"
-                  color='black'
+                  color="black"
                   size={25}
                 />
               )}

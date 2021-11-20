@@ -21,7 +21,7 @@ import MyPosts from "../Components/MyPosts";
 
 const data = [
   {
-    userName: 'sourav_dev',
+    userName: "sourav_dev",
     place: "Kalyani Tech Park",
     p_img: require("../Assets/p_img1.jpg"),
     img: require("../Assets/img5.jpg"),
@@ -72,10 +72,12 @@ const data = [
 ];
 
 const wait = (timeout) => {
-  return new Promise(resolve => setTimeout(resolve, timeout));
-}
+  return new Promise((resolve) => setTimeout(resolve, timeout));
+};
 
-export default function ProfileScreen({ navigation }) {
+export default function ProfileScreen({ navigation, route }) {
+  // const { userName, profile_image } = route.params;
+  // console.log(userName);
   const [refreshing, setRefreshing] = React.useState(false);
 
   const onRefresh = React.useCallback(() => {
@@ -86,15 +88,12 @@ export default function ProfileScreen({ navigation }) {
     <ScrollView
       contentContainerStyle={{ flexGrow: 1 }}
       showsVerticalScrollIndicator={false}
-      refreshControl= {
-        <RefreshControl
-          refreshing={refreshing}
-          onRefresh={onRefresh}
-        />
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
       }
     >
-      <StatusBar translucent={true}  />
-      <View style={{ marginBottom: 60,marginTop:5 }}>
+      <StatusBar translucent={true} />
+      <View style={{ marginBottom: 60, marginTop: 5 }}>
         <ImageBackground
           source={require("../Assets/img3.jpg")}
           style={styles.imageBackground}
@@ -146,18 +145,26 @@ export default function ProfileScreen({ navigation }) {
           </Text>
         </View>
       </View>
-      {
-        data.map((d,k) => (
-      <TouchableWithoutFeedback key={k} onPress={()=>{navigation.navigate('ProfileDetail',{
-        userName: `${d.userName}`,
-        imgs: `${d.img}`
-      })}}>
-      <View >
-      <MyPosts p_img={d.p_img} userName={d.userName} place={d.place} img={d.img}  />
-      </View>
-    </TouchableWithoutFeedback>
-        ))
-      }
+      {data.map((d, k) => (
+        <TouchableWithoutFeedback
+          key={k}
+          onPress={() => {
+            navigation.navigate("ProfileDetail", {
+              userName: `${d.userName}`,
+              imgs: `${d.img}`,
+            });
+          }}
+        >
+          <View>
+            <MyPosts
+              p_img={d.p_img}
+              userName={d.userName}
+              place={d.place}
+              img={d.img}
+            />
+          </View>
+        </TouchableWithoutFeedback>
+      ))}
     </ScrollView>
   );
 }

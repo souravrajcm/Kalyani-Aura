@@ -1,16 +1,21 @@
 import React from "react";
-import {
-  Image,
-  StyleSheet,
-  View,
-} from "react-native";
+import { Image, StyleSheet, View } from "react-native";
 
-export default function ImgFeed({
-  feed_img,
-}) {
+export default function ImgFeed({ feed_img }) {
+  // console.log(feed_img == undefined);
   return (
     <View style={{ marginBottom: 10 }}>
-      <Image source={feed_img} resizeMode="cover" style={styles.feedImg} />
+      {feed_img != "undefined" && feed_img != undefined ? (
+        <Image
+          source={{
+            uri: "https://mobileapp.kalyaniaura.com/storage/" + feed_img,
+          }}
+          resizeMode="cover"
+          style={styles.feedImg}
+        />
+      ) : (
+        <></>
+      )}
     </View>
   );
 }

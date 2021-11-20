@@ -1,22 +1,24 @@
 import React from "react";
 import { StyleSheet, View, Image, Text } from "react-native";
-import {
-  AntDesign,
-  Ionicons,
-} from "@expo/vector-icons";
+import { AntDesign, Ionicons } from "@expo/vector-icons";
 
 export default function ImgDetail({ img }) {
   return (
     <View>
-      <Image source={img} resizeMode="cover" style={styles.feedImg} />
+      <Image
+        source={{
+          uri: "https://mobileapp.kalyaniaura.com/storage/" + img,
+        }}
+        resizeMode="cover"
+        style={styles.feedImg}
+      />
       <View
-        style={
-          {
-            display: "flex",
-            flexDirection: "row",
-            marginLeft: 10,
-            // justifyContent: "",
-          }}
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          marginLeft: 10,
+          // justifyContent: "",
+        }}
       >
         <AntDesign
           name="heart"
@@ -33,10 +35,17 @@ export default function ImgDetail({ img }) {
           name="chatbubble-outline"
           size={22}
           color="gray"
-          style={{ marginLeft: 120}}
+          style={{ marginLeft: 120 }}
         >
           {" "}
-          <Text style={{ fontSize: 14, textAlign: "center", color: "gray",marginRight: 15 }}>
+          <Text
+            style={{
+              fontSize: 14,
+              textAlign: "center",
+              color: "gray",
+              marginRight: 15,
+            }}
+          >
             0
           </Text>
         </Ionicons>
